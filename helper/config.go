@@ -11,8 +11,13 @@ import (
 )
 
 type Config struct {
-	Sqlite3 string `yaml:"sqlite3"`
-	Wukong  Wukong `yaml:"wukong"`
+	Yuedu  Yuedu  `yaml:"yuedu"`
+	Wukong Wukong `yaml:"wukong"`
+}
+
+type Yuedu struct {
+	DbFile string `yaml:"db_file"`
+	DlPath string `yaml:"dl_path"`
 }
 
 type Wukong struct {
@@ -22,9 +27,9 @@ type Wukong struct {
 
 var config = NewConfig(path.Join(GetRootPath(), "conf/book.yaml"))
 
-func NewConfig(filepath string) *Config {
-	log.Printf("configFile: %s", filepath)
-	buf, err := ioutil.ReadFile(filepath)
+func NewConfig(filePath string) *Config {
+	log.Printf("configFile: %s", filePath)
+	buf, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Fatalf("init config failed: %s", err)
 	}

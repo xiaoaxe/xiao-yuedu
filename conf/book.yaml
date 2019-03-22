@@ -1,4 +1,6 @@
-sqlite3: "/opt/yuedu.db"
+yuedu:
+  db_file: "/opt/yuedu.db"
+  dl_path: "/opt/yuedu/files"
 
 wukong:
   dict_file: "data/dictionary.txt"

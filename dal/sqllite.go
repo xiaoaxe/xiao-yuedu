@@ -12,13 +12,10 @@ import (
 var db *gorm.DB
 
 func InitDb() *gorm.DB {
-	conf := helper.GetConfig()
-
-	client, err := gorm.Open("sqlite3", conf.Sqlite3)
+	client, err := gorm.Open("sqlite3", helper.GetConfig().Yuedu.DbFile)
 	if err != nil {
 		panic("init db failed")
 	}
 	db = client
 	return db
 }
-

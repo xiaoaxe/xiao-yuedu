@@ -6,9 +6,9 @@
 - [x] item & list
 - [x] search
 - [ ] hot
-- [ ] save
 - [ ] category
 - [ ] download
+- [ ] save
 - [ ] tag
 - [ ] css分页和样式
 
@@ -23,3 +23,17 @@
 1. yaml配置解析：github.com/go-yaml/yaml 
 1. 数据库orm：github.com/jinzhu/gorm
 1. 全局搜索：github.com/huichen/wukong
+
+### 工程中用到的goland不认识的词汇
+1. yuedu
+2. wukong
+3. yaml
+
+### 依赖关系图
+- depth
+    - download: go get github.com/KyleBanks/depth/cmd/depth
+    - run: depth github.com/githubao/xiao-yuedu > dep.txt
+- godepgraph
+    - download: go get github.com/kisielk/godepgraph
+    - run: godepgraph -s github.com/githubao/xiao-yuedu > dep.dot
+    - run: dot dep.dot -T png -o dep.png
