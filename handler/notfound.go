@@ -6,12 +6,12 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"github.com/githubao/xiao-yuedu/helper"
 	"fmt"
+	"github.com/githubao/xiao-yuedu/consts"
 )
 
 func NotFound(c *gin.Context) {
 	path := c.Request.URL.Path
 	msg := fmt.Sprintf("path NOT FOUND: %v", path)
-	c.JSON(http.StatusOK, helper.NotFound(msg))
+	c.HTML(http.StatusNotFound, consts.ErrorTmpl, msg)
 }

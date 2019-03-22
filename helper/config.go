@@ -12,6 +12,12 @@ import (
 
 type Config struct {
 	Sqlite3 string `yaml:"sqlite3"`
+	Wukong  Wukong `yaml:"wukong"`
+}
+
+type Wukong struct {
+	DictFile  string `yaml:"dict_file"`
+	IndexPath string `yaml:"index_path"`
 }
 
 var config = NewConfig(path.Join(GetRootPath(), "conf/book.yaml"))

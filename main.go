@@ -9,6 +9,7 @@ import (
 	"github.com/githubao/xiao-yuedu/dal"
 	"path/filepath"
 	"github.com/githubao/xiao-yuedu/helper"
+	"github.com/githubao/xiao-yuedu/tools"
 )
 
 func main() {
@@ -16,6 +17,9 @@ func main() {
 
 	db := dal.InitDb()
 	defer db.Close()
+
+	search := tools.InitSearch()
+	defer search.Close()
 
 	InitRouter(router)
 
@@ -25,8 +29,10 @@ func main() {
 }
 
 func InitRouter(r *gin.Engine) {
-	r.GET("/books/:bid", handler.GetBook)
-	r.GET("/pages/:pid", handler.GetPage)
+	r.GET("/books/:book_id", handler.GetBook)
+	r.GET("/pages/:page_num", handler.GetPage)
+	r.GET("/search", handler.SearchBook)
+
 	r.NoRoute(handler.NotFound)
 }
 

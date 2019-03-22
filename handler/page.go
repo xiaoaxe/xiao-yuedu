@@ -9,18 +9,17 @@ import (
 	"net/http"
 	"github.com/githubao/xiao-yuedu/helper"
 	"github.com/githubao/xiao-yuedu/consts"
-	"fmt"
 )
 
 func GetPage(c *gin.Context) {
-	//TODO 实现分页查询
-	pid := helper.GetParamInt64(c, "pid")
+	pageNum := helper.DefaultParamInt(c, "page_num", 1)
 
-	books := dal.FindOrder(pid, consts.PerPage)
+	books := dal.FindBookOrder(pageNum, consts.PerPage)
 
-	if books == nil {
-		msg := fmt.Sprintf("page NOT FOUND: %v", pid)
-		c.JSON(http.StatusOK, helper.NotFound(msg))
+	if books == nil || len(books) == 0 {
+		count := dal.CountBook()
+		msg := helper.AssemblePageMsg(pageNum, int(count), consts.PerPage)
+		c.HTML(http.StatusOK, consts.ErrorTmpl, msg)
 		return
 	}
 

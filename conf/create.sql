@@ -1,14 +1,25 @@
-CREATE TABLE book
-				(
-				id Integer PRIMARY KEY,
-				name varchar(255),
-				format varchar(64),
-				content text,
-				tags varchar(1024),
-				categories varchar(1024),
-				pan_url varchar(255),
-				view_count int,
-				dl_count int,
-				created_at timestamp,
-				updated_at timestamp
-				)
+create table books_dg_tmp
+(
+  id INTEGER
+    constraint id_pk
+    primary key,
+  name varchar not null,
+  format varchar not null,
+  content varchar,
+  tags varchar,
+  category INTEGER,
+  pan_url varchar,
+  view_count INTEGER,
+  dl_count INTEGER,
+  created_at datetime default strftime('%Y-%m-%d %H:%M:%f','now','localtime'),
+  updated_at datetime default strftime('%Y-%m-%d %H:%M:%f','now','localtime')
+)
+;
+
+create index cate_idx
+  on books (category)
+;
+
+create unique index name_uniq
+  on books (name)
+;

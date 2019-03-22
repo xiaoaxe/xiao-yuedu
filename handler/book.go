@@ -13,13 +13,13 @@ import (
 )
 
 func GetBook(c *gin.Context) {
-	bid := helper.GetParamInt64(c, "bid")
+	bid := helper.GetParamInt64(c, "book_id")
 
-	book := dal.FindOne(bid)
+	book := dal.FindBookOne(bid)
 
 	if book == nil {
 		msg := fmt.Sprintf("book NOT FOUND: %v", bid)
-		c.JSON(http.StatusOK, helper.NotFound(msg))
+		c.HTML(http.StatusNotFound, consts.ErrorTmpl, msg)
 		return
 	}
 

@@ -1,12 +1,11 @@
-// 工具函数
+// 路径名相关的工具函数
 // author: baoqiang
 // time: 2019/3/21 下午8:31
 package helper
 
 import (
-	"github.com/gin-gonic/gin"
-	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func GetRootPath() string {
@@ -15,9 +14,6 @@ func GetRootPath() string {
 	return path
 }
 
-func NotFound(v interface{}) gin.H {
-	return gin.H{
-		"code": 404,
-		"msg":  fmt.Sprintf("%+v", v),
-	}
+func GetDictionaryFile() string {
+	return filepath.Join(GetRootPath(), config.Wukong.DictFile)
 }

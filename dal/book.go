@@ -5,79 +5,72 @@ package dal
 
 import (
 	"log"
-	"encoding/json"
-	"github.com/githubao/xiao-yuedu/helper"
+	"github.com/githubao/xiao-yuedu/models"
 )
 
-type Book struct {
-	Id         int64           `gorm:"id,primary_key"`
-	Name       string          `gorm:"name"`
-	Format     string          `gorm:"format"`
-	Content    string          `gorm:"content"`
-	Tags       string          `gorm:"tags"`
-	Categories string          `gorm:"categories"`
-	ViewCount  int             `gorm:"view_count"`
-	DlCount    int             `gorm:"dl_count"`
-	PanUrl     string          `gorm:"pan_url"`
-	CreateAt   helper.JSONTime `gorm:"created_at"`
-	UpdateAt   helper.JSONTime `gorm:"updated_at"`
+func Create(b models.Book) error {
+	return db.Model(&b).Create(b).Error
+	return nil
 }
 
-func (b *Book) TableName() string {
-	return "book"
+func UpdateBookField(b models.Book, attr string) error {
+	return db.Model(&b).Select(attr).Updates(b).Error
 }
 
-func (b *Book) Create() error {
-	db := GetDb()
-	return db.Create(b).Error
+func CountBook() int64 {
+	var count int64
+	err := db.Model(&models.Book{}).Count(&count).Error
+	if err != nil {
+		log.Printf("[ERROR] count failed: %v", err)
+		return 0
+	}
+	return count
 }
 
-func (b *Book) Update() error {
-	db := GetDb()
-	return db.Save(b).Error
-}
-
-func (b *Book) String() string {
-	jdata, _ := json.Marshal(b)
-	return string(jdata)
-}
-
-func FindOne(bid int64) *Book {
-	db := GetDb()
-
-	var book Book
+// FIND START
+func FindBookOne(bid int64) *models.Book {
+	var book models.Book
 
 	err := db.Where("id=?", bid).Find(&book).Error
 
 	if err != nil {
-		log.Printf("[ERROR] find bid failed: %d", bid)
+		log.Printf("[ERROR] find bid failed: %d, %+v", bid, err)
 		return nil
 	}
 
 	return &book
 }
 
-func FindAll() []*Book {
-	db := GetDb()
+func FindBookIds(bids []int64) []*models.Book {
+	var books []*models.Book
 
-	var book []*Book
+	err := db.Where("id in (?)", bids).Find(&books).Error
+
+	if err != nil {
+		log.Printf("[ERROR] find bids failed: %d, %+v", bids, err)
+		return nil
+	}
+
+	return books
+}
+
+func FindBookAll() []*models.Book {
+	var book []*models.Book
 
 	err := db.Find(&book).Error
 
 	if err != nil {
-		log.Printf("[ERROR] find all failed: %v", err)
+		log.Printf("[ERROR] find all failed: %+v", err)
 		return nil
 	}
 
 	return book
 }
 
-func FindOrder(page int64, perPage int64) []*Book {
-	db := GetDb()
+func FindBookOrder(pageNum int, perPage int) []*models.Book {
+	var books []*models.Book
 
-	var books []*Book
-
-	offset := (page - 1) * perPage
+	offset := (pageNum - 1) * perPage
 
 	err := db.Model(&books).
 		Order("created_at DESC").
@@ -91,5 +84,11 @@ func FindOrder(page int64, perPage int64) []*Book {
 	}
 
 	return books
+}
 
+// FIND END
+
+// deprecated update all
+func Update(b models.Book) error {
+	return db.Model(&b).Save(b).Error
 }

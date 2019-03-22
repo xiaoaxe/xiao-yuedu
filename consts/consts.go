@@ -4,8 +4,10 @@
 package consts
 
 const (
-	BookTmpl = "book.html"
-	PageTmpl = "page.html"
+	BookTmpl   = "book.html"
+	PageTmpl   = "page.html"
+	ErrorTmpl  = "error.html"
+	SearchTmpl = "search.html"
 )
 
-const PerPage = 3
+const PerPage = 1
