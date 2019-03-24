@@ -6,16 +6,44 @@ package dal
 import (
 	"log"
 	"github.com/githubao/xiao-yuedu/models"
+	"github.com/githubao/xiao-yuedu/helper"
+	"time"
+	"fmt"
 )
 
-func Create(b models.Book) error {
-	return db.Model(&b).Create(b).Error
-	return nil
+func CreateBook(b models.Book) error {
+	b.CreatedAt = helper.JSONTime(time.Now().UnixNano())
+	b.UpdatedAt = b.CreatedAt
+	return db.Model(&b).Create(&b).Error
 }
 
+// UPDATE start
 func UpdateBookField(b models.Book, attr string) error {
-	return db.Model(&b).Select(attr).Updates(b).Error
+	addUpdate(&b)
+	return db.Model(&b).Select(addUpdateField(attr)).UpdateColumns(b).Error
 }
+
+func AddView(b models.Book) error {
+	addUpdate(&b)
+	b.ViewCount += 1
+	return db.Model(&b).Select(addUpdateField("view_count")).UpdateColumns(b).Error
+}
+
+func AddDownload(b models.Book) error {
+	addUpdate(&b)
+	b.DownloadCount += 1
+	return db.Model(&b).Select(addUpdateField("download_count")).UpdateColumns(b).Error
+}
+
+func addUpdate(b *models.Book) {
+	b.UpdatedAt = helper.JSONTime(time.Now().UnixNano())
+}
+
+func addUpdateField(attr string) []string {
+	return []string{attr, "updated_at"}
+}
+
+// UPDATE end
 
 func CountBook() int64 {
 	var count int64
@@ -27,7 +55,7 @@ func CountBook() int64 {
 	return count
 }
 
-// FIND START
+// FIND start
 func FindBookOne(bid int64) *models.Book {
 	var book models.Book
 
@@ -55,16 +83,16 @@ func FindBookIds(bids []int64) []*models.Book {
 }
 
 func FindBookAll() []*models.Book {
-	var book []*models.Book
+	var books []*models.Book
 
-	err := db.Find(&book).Error
+	err := db.Find(&books).Error
 
 	if err != nil {
-		log.Printf("[ERROR] find all failed: %+v", err)
+		log.Printf("[ERROR] find all book failed: %+v", err)
 		return nil
 	}
 
-	return book
+	return books
 }
 
 func FindBookOrder(pageNum int, perPage int) []*models.Book {
@@ -86,9 +114,31 @@ func FindBookOrder(pageNum int, perPage int) []*models.Book {
 	return books
 }
 
-// FIND END
+func FindHot(pageNum int, perPage int) []*models.Book {
+	var books []*models.Book
+
+	offset := (pageNum - 1) * perPage
+
+	orderValueFmt := "(%d * download_count + %d * view_count) DESC"
+	orderValue := fmt.Sprintf(orderValueFmt, 3, 1)
+
+	err := db.Model(&books).
+		Order(orderValue).
+		Limit(perPage).
+		Offset(offset).
+		Find(&books).Error
+
+	if err != nil {
+		log.Printf("[ERROR] find all failed: %+v", err)
+		return nil
+	}
+
+	return books
+}
+
+// FIND end
 
 // deprecated update all
-func Update(b models.Book) error {
-	return db.Model(&b).Save(b).Error
-}
+//func Update(b models.Book) error {
+//	return db.Model(&b).Save(b).Error
+//}

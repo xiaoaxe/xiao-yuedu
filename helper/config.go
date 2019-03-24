@@ -8,6 +8,7 @@ import (
 	"github.com/go-yaml/yaml"
 	"log"
 	"path"
+	"path/filepath"
 )
 
 type Config struct {
@@ -21,15 +22,16 @@ type Yuedu struct {
 }
 
 type Wukong struct {
-	DictFile  string `yaml:"dict_file"`
-	IndexPath string `yaml:"index_path"`
+	DictFile     string `yaml:"dict_file"`
+	IndexPath    string `yaml:"index_path"`
+	SearchEnable bool   `yaml:"search_enable"`
 }
 
 var config = NewConfig(path.Join(GetRootPath(), "conf/book.yaml"))
 
 func NewConfig(filePath string) *Config {
 	log.Printf("configFile: %s", filePath)
-	buf, err := ioutil.ReadFile(filePath)
+	buf, err := ioutil.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		log.Fatalf("init config failed: %s", err)
 	}

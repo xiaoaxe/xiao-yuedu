@@ -4,10 +4,15 @@
 package consts
 
 const (
+	IndexTmpl  = "index.html"
 	BookTmpl   = "book.html"
 	PageTmpl   = "page.html"
 	ErrorTmpl  = "error.html"
 	SearchTmpl = "search.html"
+	HotTmpl    = "hot.html"
 )
 
-const PerPage = 1
+const (
+	PerPage = 1
+	PerHot  = 1
+)

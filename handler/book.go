@@ -23,5 +23,8 @@ func GetBook(c *gin.Context) {
 		return
 	}
 
+	// incr view count
+	dal.AddView(*book)
+
 	c.HTML(http.StatusOK, consts.BookTmpl, book)
 }

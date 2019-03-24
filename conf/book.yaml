@@ -5,3 +5,4 @@ yuedu:
 wukong:
   dict_file: "data/dictionary.txt"
   index_path: "data/index"
+  search_enable: false

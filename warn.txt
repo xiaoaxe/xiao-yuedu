@@ -1,0 +1,5 @@
+main.go:39:6:warning: func InitHtml should be InitHTML (golint)
+helper/pagination.go:23:9:warning: if block ends with a return statement, so drop this else and outdent its block (golint)
+models/book.go:12:2:warning: struct field Id should be ID (golint)
+models/book.go:20:2:warning: struct field PanUrl should be PanURL (golint)
+helper/config.go:35::warning: Potential file inclusion via variable,MEDIUM,HIGH (gosec)

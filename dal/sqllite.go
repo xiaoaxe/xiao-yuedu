@@ -5,6 +5,7 @@ package dal
 
 import (
 	"github.com/jinzhu/gorm"
+	// sqllite3 imports here
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/githubao/xiao-yuedu/helper"
 )
@@ -12,10 +13,14 @@ import (
 var db *gorm.DB
 
 func InitDb() *gorm.DB {
-	client, err := gorm.Open("sqlite3", helper.GetConfig().Yuedu.DbFile)
+	var err error
+
+	db, err = gorm.Open("sqlite3", helper.GetConfig().Yuedu.DbFile)
 	if err != nil {
 		panic("init db failed")
 	}
-	db = client
+
+	db.LogMode(true)
+
 	return db
 }

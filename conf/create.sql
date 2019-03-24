@@ -1,4 +1,6 @@
-create table books_dg_tmp
+drop table books;
+
+create table books
 (
   id INTEGER
     constraint id_pk
@@ -10,16 +12,31 @@ create table books_dg_tmp
   category INTEGER,
   pan_url varchar,
   view_count INTEGER,
-  dl_count INTEGER,
-  created_at datetime default strftime('%Y-%m-%d %H:%M:%f','now','localtime'),
-  updated_at datetime default strftime('%Y-%m-%d %H:%M:%f','now','localtime')
+  download_count INTEGER,
+  created_at INTEGER,
+  updated_at INTEGER
 )
 ;
 
-create index cate_idx
-  on books (category)
+create index cate_idx on books (category);
+
+create unique index name_uniq on books (name);
+
+######## category ########
+drop table categories;
+
+create table categories
+(
+  id INTEGER
+    constraint id_pk
+    primary key,
+  category INTEGER not null,
+  major varchar,
+  sub varchar,
+  created_at INTEGER,
+  updated_at INTEGER
+)
 ;
 
-create unique index name_uniq
-  on books (name)
-;
+create unique index cate_uniq on categories (category);
+

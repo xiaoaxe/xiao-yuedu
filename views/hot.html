@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热门文章</title>
+</head>
+
+<body>
+
+{{range .}}
+<div>书名：{{.Name}} 简介:{{.Content}} 热度:{{calHot .DownloadCount .ViewCount}}</div>
+{{end}}
+
+</body>
+</html>

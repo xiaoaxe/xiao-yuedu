@@ -16,7 +16,7 @@ func GetPage(c *gin.Context) {
 
 	books := dal.FindBookOrder(pageNum, consts.PerPage)
 
-	if books == nil || len(books) == 0 {
+	if len(books) == 0 {
 		count := dal.CountBook()
 		msg := helper.AssemblePageMsg(pageNum, int(count), consts.PerPage)
 		c.HTML(http.StatusOK, consts.ErrorTmpl, msg)
