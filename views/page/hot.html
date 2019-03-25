@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热门文章</title>
+    <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+{{template "layout/header.html"}}
+
+{{range .Books}}
+<div class="text-center">
+    <a href="/books/{{.Id}}" target="_blank">{{.Name}}</a>
+    <div>热度: {{calHot .DownloadCount .ViewCount}}</div>
+</div>
+
+{{end}}
+
+{{.PageTmpl}}
+
+</body>
+<script src="/static/libs/jquery/jquery.min.js"></script>
+<script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+</html>

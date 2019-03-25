@@ -39,8 +39,9 @@ func SearchBook(c *gin.Context) {
 	books := dal.FindBookIds(bids)
 
 	c.HTML(http.StatusOK, consts.SearchTmpl, models.Search{
-		Text:  text,
-		Books: books,
+		Text:     text,
+		Books:    books,
+		PageTmpl: BuildPaginateHtml(c.Request.URL.String(), pageNum, len(sret.Docs), consts.PerPage),
 	})
 }
 

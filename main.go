@@ -35,14 +35,18 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/", handler.Index)
 	r.GET("/books/:book_id", handler.GetBook)
 	r.GET("/pages/:page_num", handler.GetPage)
-	r.GET("/search", handler.SearchBook)
 	r.GET("/download", handler.DownloadBook)
 	r.GET("/hot", handler.GetHot)
 
+	if helper.SearchEnabled(){
+		r.GET("/search", handler.SearchBook)
+	}
+
 	r.NoRoute(handler.NotFound)
+	r.Static("/static", "static")
 }
 
 func InitHtml(r *gin.Engine) {
 	r.SetFuncMap(template.FuncMap{"calHot": helper.CalHot})
-	r.LoadHTMLGlob(filepath.Join(helper.GetRootPath(), "views/*"))
+	r.LoadHTMLGlob(filepath.Join(helper.GetRootPath(), "views/**/*"))
 }

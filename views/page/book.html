@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Name}}</title>
+    <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+{{template "layout/header.html"}}
+
+<h1><{{.Name}}></h1>
+<div>{{.Content}}</div>
+<a href="/download?book_id={{.Id}}">下载</a>
+</body>
+<script src="/static/libs/jquery/jquery.min.js"></script>
+<script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+</html>
+

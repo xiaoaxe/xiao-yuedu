@@ -7,7 +7,7 @@
 - [x] search
 - [x] category
 - [x] download
-- [ ] hot
+- [x] hot
 - [ ] save
 - [ ] tag
 - [ ] css分页和样式

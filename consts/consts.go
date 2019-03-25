@@ -14,5 +14,5 @@ const (
 
 const (
 	PerPage = 1
-	PerHot  = 1
+	PageDelta = 2
 )
