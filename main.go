@@ -29,6 +29,7 @@ func main() {
 	InitHtml(router)
 
 	router.Run("localhost:8000")
+	//router.Run(":8000")
 }
 
 func InitRouter(r *gin.Engine) {
@@ -37,6 +38,7 @@ func InitRouter(r *gin.Engine) {
 	r.GET("/pages/:page_num", handler.GetPage)
 	r.GET("/download", handler.DownloadBook)
 	r.GET("/hot", handler.GetHot)
+	r.GET("/about", handler.About)
 
 	if helper.SearchEnabled(){
 		r.GET("/search", handler.SearchBook)

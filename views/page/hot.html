@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>热门文章</title>
     <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
 </head>
 
 <body>
@@ -14,12 +15,15 @@
     <a href="/books/{{.Id}}" target="_blank">{{.Name}}</a>
     <div>热度: {{calHot .DownloadCount .ViewCount}}</div>
 </div>
-
 {{end}}
+
+{{template "layout/footer.html"}}
 
 {{.PageTmpl}}
 
 </body>
 <script src="/static/libs/jquery/jquery.min.js"></script>
 <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+{{template "layout/script.html"}}
 </html>
+

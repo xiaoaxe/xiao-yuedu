@@ -1,54 +1,62 @@
 {{define "layout/header.html"}}
 
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div>
-            <form class="navbar-form navbar-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">悦读</a>
-                </div>
+<div id="topheader">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">悦读</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/pages/1">文章</a></li>
-                    <li><a href="/hot">热门</a></li>
-                    <li><a href="/category">分类</a></li>
+                {{/*<li class="active"><a href="/pages/1">文章<span class="sr-only">(current)</span></a></li>*/}}
+                    <li><a class="nav-link" href="/pages/1">文章</a></li>
+                    <li><a class="nav-link" href="/hot?p=1">热门</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">分类<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="/categories/1010001">Go</a></li>
+                            <li><a class="nav-link" href="/categories/1020001#">古典文学</a></li>
+                        {{/*<li><a href="#">Something else here</a></li>*/}}
+                        {{/*<li role="separator" class="divider"></li>*/}}
+                        {{/*<li><a href="#">Separated link</a></li>*/}}
+                        </ul>
+                    </li>
                 </ul>
-            </form>
-        {{/*<form class="form-inline pull-right" role="search" action="/search" method="get" target="_blank">*/}}
-        {{/*<div class="form-group">*/}}
-        {{/*<input name="text" class="form-control mr-sm-2" type="text" placeholder="全站搜索">*/}}
-        {{/*</div>*/}}
-        {{/*<button class="btn my-2 my-sm-0" type="submit" style="background:none; margin-left:-3rem; color:#ff9d00;" ><i class="fa fa-search" ></i></button>*/}}
-        {{/*</form>*/}}
-
-            <form class="navbar-form navbar-right" role="search" action="/search" method="get" target="_blank">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </div>
-                        <input name="text" type="text" class="form-control" placeholder="全站搜索"/>
+            {{/*<div class="navbar-right">*/}}
+                <form class="navbar-form navbar-left" role="search" action="/search" method="get" target="_blank">
+                    <div class="form-group">
+                        <input name="text" type="text" class="form-control" placeholder="全站搜索">
                     </div>
-                </div>
-                <button type="button" class="btn btn-danger">搜索</button>
-            </form>
-
-        {{/*<li class="dropdown">*/}}
-        {{/*<a href="#" class="dropdown-toggle" data-toggle="dropdown">*/}}
-        {{/*Java*/}}
-        {{/*<b class="caret"></b>*/}}
-        {{/*</a>*/}}
-        {{/*<ul class="dropdown-menu">*/}}
-        {{/*<li><a href="#">jmeter</a></li>*/}}
-        {{/*<li><a href="#">EJB</a></li>*/}}
-        {{/*<li><a href="#">Jasper Report</a></li>*/}}
-        {{/*<li class="divider"></li>*/}}
-        {{/*<li><a href="#">分离的链接</a></li>*/}}
-        {{/*<li class="divider"></li>*/}}
-        {{/*<li><a href="#">另一个分离的链接</a></li>*/}}
-        {{/*</ul>*/}}
-        {{/*</li>*/}}
-        </div>
-    </div>
-</nav>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="nav-link" href="/about">关于我</a></li>
+                {{/*<li class="dropdown">*/}}
+                {{/*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>*/}}
+                {{/*<ul class="dropdown-menu">*/}}
+                {{/*<li><a href="#">Action</a></li>*/}}
+                {{/*<li><a href="#">Another action</a></li>*/}}
+                {{/*<li><a href="#">Something else here</a></li>*/}}
+                {{/*<li role="separator" class="divider"></li>*/}}
+                {{/*<li><a href="#">Separated link</a></li>*/}}
+                {{/*</ul>*/}}
+                {{/*</li>*/}}
+                </ul>
+            {{/*</div> <!-- /.navbar-right -->*/}}
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
 
 {{end}}

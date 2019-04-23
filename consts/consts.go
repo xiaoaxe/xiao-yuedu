@@ -5,6 +5,7 @@ package consts
 
 const (
 	IndexTmpl  = "index.html"
+	AboutTmpl  = "about.html"
 	BookTmpl   = "book.html"
 	PageTmpl   = "page.html"
 	ErrorTmpl  = "error.html"
